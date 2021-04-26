@@ -26,8 +26,8 @@ def get_weather(city: str) -> dict:
         prec = emoji.emojize(':cloud:')
     elif precipitation == 'Fog':
         prec = emoji.emojize(':foggy:')
-    elif precipitation == 'Sun':
-        prec = emoji.emojize(':sunny:')
+    elif precipitation == 'Clear':
+        prec = emoji.emojize(':sun_with_face:')
     elif precipitation == 'Rain':
         prec = emoji.emojize(':umbrella:')
     elif precipitation == 'Snow':
