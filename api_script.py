@@ -19,9 +19,11 @@ def get_weather(city: str) -> dict:
     time_d = str(time.ctime(data['dt']))[4:]
     time_res = str(datetime.datetime.strptime(time_d, '%b %d %H:%M:%S %Y'))
     
+    # Получение информации об осадках
     precipitation = data['weather'][0]['main']
     prec = None
 
+    # Выбор эмодзи в зависимости от осадков
     if precipitation == 'Clouds':
         prec = emoji.emojize(':cloud:')
     elif precipitation == 'Fog':

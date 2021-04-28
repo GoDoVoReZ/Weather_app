@@ -1,3 +1,5 @@
+# ДЕСКТОПНАЯ ВЕРСИЯ
+
 # Импорт библиотек и модуля api_script
 import PySimpleGUI as sg
 import numpy as np 
@@ -10,10 +12,14 @@ sg.theme('DarkAmber')
 # отображает значение температуры в заданном городе
 def update(city):
     try:
+        # Вызываем функцию get_weather() 
+        # Выводим строку с информацией о городе, времени, температуре и осадках
         weather = get_weather(city)
         text_elem = window['-text-']
         text_elem.update('Temp in {}: {} Celcius, {}'.format(weather['City'], weather['Temp'], weather['Prec']))
     except:
+        # Если функция get_weather() не срабатывает выводим строку 
+        # с иформацией об ошибке
         text_elem = window['-text-']
         text_elem.update("Some fucked'up")
 # Слои окна:
