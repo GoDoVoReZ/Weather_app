@@ -21,6 +21,7 @@ plot_check = st.sidebar.checkbox('Show the plot')
 # Чекбокс проверяющий нужно ли указывать время при выводе
 time_check = st.sidebar.checkbox('Show the time')
 
+# Чекбокс проверяющий нужно ли выводить строку с информацией о городе
 city_info_check = st.sidebar.checkbox('Show the city info')
 
 
@@ -31,18 +32,26 @@ if text is not None and btn:
     try:
         # Вызов функции get_weather()
         data = get_weather(text)
+        # Переменные погоды,осадков
+        # Времени
+        # И инфл=ормации о городе
         mess = 'Temp in {}: {} °C {}'.format(data['City'], data['Temp'], data['Prec'])
         time = ''
         info = ''
+        # Если активен чекбокс plot_check покзать график погоды
         if plot_check:
             # Заебашить сюда график погоды за 7, 14, 30 дней
             pass
+
+        # Если активен чекбокс time_check показать время
         if time_check:
             time = data['Time']
 
+        # Если фктивен чекбокс city_info_check показать информацию о городе
         if city_info_check:
             info = city_wiki_info(data['City'])
 
+        # Основной вывод
         st.markdown(f'# {mess} #')
         st.markdown(f'## {time} ##')
         st.markdown(f'**{info}**')

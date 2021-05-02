@@ -55,5 +55,7 @@ def week_weather(city: str)->dict:
     data = res.json()
     return data
 
+# функция поиска информации о городе
+# Использует Википедию, и возвращает строку с заметкой о данном городе
 def city_wiki_info(city:str):
     return wikipedia.summary(city)
