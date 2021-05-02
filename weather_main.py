@@ -31,7 +31,7 @@ if text is not None and btn:
     try:
         # Вызов функции get_weather()
         data = get_weather(text)
-        mess = 'Temp in {}: {} °C'.format(data['City'], data['Temp'])
+        mess = 'Temp in {}: {} °C {}'.format(data['City'], data['Temp'], data['Prec'])
         time = ''
         info = ''
         if plot_check:
