@@ -2,7 +2,7 @@
 
 # Импорт библиотек
 import streamlit as st 
-from api_script import get_weather
+from api_script import *
 import time
 
 # Вывод строки с названием
@@ -16,10 +16,12 @@ btn = st.button('Find')
 
 # Отображение боковой панели с чекбоксами
 # Чекбокс проверяющий нужно ли строить график погоды
-plot_check = st.sidebar.checkbox('Show the plot?')
+plot_check = st.sidebar.checkbox('Show the plot')
 
 # Чекбокс проверяющий нужно ли указывать время при выводе
-time_check = st.sidebar.checkbox('Show the time?')
+time_check = st.sidebar.checkbox('Show the time')
+
+city_info_check = st.sidebar.checkbox('Show the city info')
 
 
 # Блок главных условий
@@ -29,18 +31,24 @@ if text is not None and btn:
     try:
         # Вызов функции get_weather()
         data = get_weather(text)
-        # Если чекбокс времени активен добавить в строку вывода время
-        if time_check:
-            # Создание строки вывода
-            mess = 'Weather in {} ({}): {} C, {}'.format(data['City'], data['Time'], data['Temp'], data['Prec'])
-            st.markdown(f'# {mess}')
-        # Если чекбокс времени НЕ активен не добавлять время в строку вывода
-        else:
-            mess = 'Weather in {}: {} C, {}'.format(data['City'], data['Temp'], data['Prec'])
-            st.markdown(f'# {mess}')
+        mess = 'Temp in {}: {} °C'.format(data['City'], data['Temp'])
+        time = ''
+        info = ''
         if plot_check:
+            # Заебашить сюда график погоды за 7, 14, 30 дней
             pass
+        if time_check:
+            time = data['Time']
+
+        if city_info_check:
+            info = city_wiki_info(data['City'])
+
+        st.markdown(f'# {mess} #')
+        st.markdown(f'## {time} ##')
+        st.markdown(f'**{info}**')
+        
+        
     # Если функция get_weather() отработала не правильно 
     # Вывести строку с информацией об ошибке
     except:
-        st.write('Something went wrong.Try again')
+        st.markdown('## **Something went wrong.Try again** ##')
