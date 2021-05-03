@@ -1,2 +1,2 @@
-/.ipunb_checkpoints/*
-/__pycache__/*
+.ipunb_checkpoints/
+__pycache__/
