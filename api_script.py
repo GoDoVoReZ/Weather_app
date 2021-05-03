@@ -4,7 +4,7 @@ import time
 import datetime
 import emoji
 import wikipedia
-import matplotlib.pyplot as plt
+import seaborn as sns
 
 # API-ключ для сайта openweathermap.org
 API_KEY = 'f80c68c910ec32bfb6928c1f483bb0ad'
@@ -59,9 +59,7 @@ def week_weather(city: str)->dict:
             time.append(i['dt_txt'][:10])
             temp.append('{0:+3.0f}'.format(i['main']['temp_max']))
             #print( i['dt_txt'], '{0:+3.0f}'.format(i['main']['temp']), i['weather'][0]['main'])
-        fig, ax = plt.subplots()
-        ax.plot(time, temp)
-        return fig
+        sns.lineplot(x=time, y=temp)
 
     except Exception as e:
         print("Exception (forecast):", e)

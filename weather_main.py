@@ -42,7 +42,8 @@ if text is not None and btn:
         # Если активен чекбокс plot_check покзать график погоды
         if plot_check:
             # Заебашить сюда график погоды за 7, 14, 30 дней
-            plot = week_weather(data['City'])
+            plot = 1
+            week_weather(data['City'])
 
         # Если активен чекбокс time_check показать время
         if time_check:
@@ -56,7 +57,7 @@ if text is not None and btn:
         st.markdown(f'# {mess} #')
         st.markdown(f'## {time} ##')
         if plot_check != None:
-            st.pyplot(plot)
+            st.pyplot()
         st.markdown(f'**{info}**')
         
         
