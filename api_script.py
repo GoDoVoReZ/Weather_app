@@ -48,19 +48,27 @@ def get_weather(city: str) -> dict:
     return d_data
 
 
+# Функция построения графика погоды за 5 дней
 def week_weather(city: str)->dict:
     try:
+        # API-запрос
         res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
                            params={'q':city, 'units': 'metric', 'lang': 'ru', 'APPID': API_KEY})
+        # Перевод ответа в json-формат                   
         data = res.json()
         time = []
         temp = []
+        # Вытаскиваем нужные данные из json-файла
+        # Нужные данные это время и температура
         for i in data['list']:
             time.append(i['dt_txt'][:10])
             temp.append('{0:+3.0f}'.format(i['main']['temp_max']))
-            #print( i['dt_txt'], '{0:+3.0f}'.format(i['main']['temp']), i['weather'][0]['main'])
+
+        # Построение графика по температуре и времени
         sns.lineplot(x=time, y=temp)
 
+    # Если запрос немного ♂SUCK SOME DICK♂ выводим ошибку и ничего не делаем
+    # Чтобы ничего не отъебнуло
     except Exception as e:
         print("Exception (forecast):", e)
         pass

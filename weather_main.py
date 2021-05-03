@@ -34,15 +34,13 @@ if text is not None and btn:
         data = get_weather(text)
         # Переменные погоды,осадков
         # Времени
-        # И инфл=ормации о городе
+        # И информации о городе
         mess = 'Temp in {}: {} °C {}'.format(data['City'], data['Temp'], data['Prec'])
         time = ''
         info = ''
-        plot = None
         # Если активен чекбокс plot_check покзать график погоды
         if plot_check:
-            # Заебашить сюда график погоды за 7, 14, 30 дней
-            plot = 1
+            # Вызываем функцию для построения графика
             week_weather(data['City'])
 
         # Если активен чекбокс time_check показать время
@@ -56,7 +54,11 @@ if text is not None and btn:
         # Основной вывод
         st.markdown(f'# {mess} #')
         st.markdown(f'## {time} ##')
-        if plot_check != None:
+        # Если активен чекбокс plot_check покзать график погоды
+        if plot_check:
+            # Вызываем функцию для построения графика
+            week_weather(data['City'])
+            # Отрисовываем график
             st.pyplot()
         st.markdown(f'**{info}**')
         
