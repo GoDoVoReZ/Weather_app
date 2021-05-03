@@ -4,10 +4,10 @@ import time
 import datetime
 import emoji
 import wikipedia
+import matplotlib.pyplot as plt
 
 # API-ключ для сайта openweathermap.org
 API_KEY = 'f80c68c910ec32bfb6928c1f483bb0ad'
-WEEK_API = '34d4ca52be16af6c8fee8bee82c254e0'
 
 # Функия получения информации о погоде в заданном городе,
 def get_weather(city: str) -> dict:
@@ -49,11 +49,23 @@ def get_weather(city: str) -> dict:
 
 
 def week_weather(city: str)->dict:
-    res = requests.get('http://api.openweathermap.org/data/2.5/forecast/daily',
-                      params={'q':city, 'appid':WEEK_API, 'cnt':'7', 'units':'metric','lang':'ru'})
-    
-    data = res.json()
-    return data
+    try:
+        res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
+                           params={'q':city, 'units': 'metric', 'lang': 'ru', 'APPID': API_KEY})
+        data = res.json()
+        time = []
+        temp = []
+        for i in data['list']:
+            time.append(i['dt_txt'][:10])
+            temp.append('{0:+3.0f}'.format(i['main']['temp_max']))
+            #print( i['dt_txt'], '{0:+3.0f}'.format(i['main']['temp']), i['weather'][0]['main'])
+        fig, ax = plt.subplots()
+        ax.plot(time, temp)
+        return fig
+
+    except Exception as e:
+        print("Exception (forecast):", e)
+        pass
 
 # функция поиска информации о городе
 # Использует Википедию, и возвращает строку с заметкой о данном городе

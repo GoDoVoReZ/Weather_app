@@ -38,10 +38,11 @@ if text is not None and btn:
         mess = 'Temp in {}: {} °C {}'.format(data['City'], data['Temp'], data['Prec'])
         time = ''
         info = ''
+        plot = None
         # Если активен чекбокс plot_check покзать график погоды
         if plot_check:
             # Заебашить сюда график погоды за 7, 14, 30 дней
-            pass
+            plot = week_weather(data['City'])
 
         # Если активен чекбокс time_check показать время
         if time_check:
@@ -54,6 +55,8 @@ if text is not None and btn:
         # Основной вывод
         st.markdown(f'# {mess} #')
         st.markdown(f'## {time} ##')
+        if plot_check != None:
+            st.pyplot(plot)
         st.markdown(f'**{info}**')
         
         
